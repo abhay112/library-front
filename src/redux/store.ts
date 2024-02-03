@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { productAPI } from "./api/productAPI";
+import { studentAPI } from "./api/studentAPI";
 import { userAPI } from "./api/userAPI";
 import { userReducer } from "./reducer/userReducer";
 import { cartReducer } from "./reducer/cartReducer";
@@ -11,7 +11,7 @@ export const server = import.meta.env.VITE_SERVER;
 export const store = configureStore({
   reducer: {
     [userAPI.reducerPath]: userAPI.reducer,
-    [productAPI.reducerPath]: productAPI.reducer,
+    [studentAPI.reducerPath]: studentAPI.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
     [dashboardApi.reducerPath]: dashboardApi.reducer,
     [userReducer.name]: userReducer.reducer,
@@ -20,7 +20,7 @@ export const store = configureStore({
   middleware: (mid) => [
     ...mid(),
     userAPI.middleware,
-    productAPI.middleware,
+    studentAPI.middleware,
     orderApi.middleware,
     dashboardApi.middleware,
   ],

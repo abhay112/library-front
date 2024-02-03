@@ -123,7 +123,7 @@ const App = () => {
             }
           >
             <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/product" element={<Products />} />
+            <Route path="/admin/student" element={<Products />} />
             <Route path="/admin/customer" element={<Customers />} />
             <Route path="/admin/transaction" element={<Transaction />} />
             {/* Charts */}
@@ -138,7 +138,7 @@ const App = () => {
             {/* Management */}
             <Route path="/admin/product/new" element={<NewProduct />} />
 
-            <Route path="/admin/product/:id" element={<ProductManagement />} />
+            <Route path="/admin/student/:id" element={<ProductManagement />} />
 
             <Route path="/admin/transaction/:id" element={<TransactionManagement />} />
           </Route>

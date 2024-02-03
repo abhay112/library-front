@@ -14,6 +14,16 @@ export type Product = {
   photo: string;
   _id: string;
 };
+export type Student = {
+  adminId:string;
+  name: string;
+  email:string;
+  mobile:string;
+  library: string;
+  attendance:string;
+  photo: string;
+  _id: string;
+};
 
 export type ShippingInfo = {
   address: string;

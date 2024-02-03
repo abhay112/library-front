@@ -85,8 +85,8 @@ const DivOne = ({ location }: { location: Location }) => (
         location={location}
       />
       <Li
-        url="/admin/product"
-        text="Product"
+        url="/admin/student"
+        text="Student"
         Icon={RiShoppingBag3Fill}
         location={location}
       />

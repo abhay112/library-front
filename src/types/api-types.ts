@@ -4,7 +4,7 @@ import {
   Line,
   Order,
   Pie,
-  Product,
+  Student,
   ShippingInfo,
   Stats,
   User,
@@ -33,28 +33,28 @@ export type UserResponse = {
   user: User;
 };
 
-export type AllProductsResponse = {
+export type AllStudentsResponse = {
   success: boolean;
-  products: Product[];
+  students: Student[];
 };
 export type CategoriesResponse = {
   success: boolean;
   categories: string[];
 };
 
-export type SearchProductsResponse = AllProductsResponse & {
+export type SearchStudentsResponse = AllStudentsResponse & {
   totalPage: number;
 };
-export type SearchProductsRequest = {
+export type SearchStudentsRequest = {
   price: number;
   page: number;
   category: string;
   search: string;
   sort: string;
 };
-export type ProductResponse = {
+export type StudentResponse = {
   success: boolean;
-  product: Product;
+  student: Student;
 };
 
 export type AllOrdersResponse = {
@@ -86,18 +86,18 @@ export type LineResponse = {
   charts: Line;
 };
 
-export type NewProductRequest = {
+export type NewStudentRequest = {
   id: string;
   formData: FormData;
 };
-export type UpdateProductRequest = {
+export type UpdateStudentRequest = {
   userId: string;
-  productId: string;
+  studentId: string;
   formData: FormData;
 };
-export type DeleteProductRequest = {
+export type DeleteStudentRequest = {
   userId: string;
-  productId: string;
+  studentId: string;
 };
 
 export type NewOrderRequest = {

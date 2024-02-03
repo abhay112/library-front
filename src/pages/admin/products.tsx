@@ -1,15 +1,18 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
+import { useSelector } from "react-redux";
+import { RootState, server } from "../../redux/store";
+import { useAllStudentsQuery } from "../../redux/api/studentAPI";
 
 interface DataType {
   photo: ReactElement;
   name: string;
-  price: number;
-  stock: number;
+  email:string;
+  mobile:string;
   action: ReactElement;
 }
 
@@ -23,12 +26,12 @@ const columns: Column<DataType>[] = [
     accessor: "name",
   },
   {
-    Header: "Price",
-    accessor: "price",
+    Header: "Email",
+    accessor: "email",
   },
   {
-    Header: "Stock",
-    accessor: "stock",
+    Header: "Mobile",
+    accessor: "mobile",
   },
   {
     Header: "Action",
@@ -45,28 +48,43 @@ const arr: Array<DataType> = [
   {
     photo: <img src={img} alt="Shoes" />,
     name: "Puma Shoes Air Jordan Cook Nigga 2023",
-    price: 690,
-    stock: 3,
+    email:"abhay@gm.col",
+    mobile:"9494949499",
     action: <Link to="/admin/product/sajknaskd">Manage</Link>,
   },
 
   {
     photo: <img src={img2} alt="Shoes" />,
     name: "Macbook",
-    price: 232223,
-    stock: 213,
+    email:"abhay@gm.col",
+    mobile:"9494949499",
     action: <Link to="/admin/product/sdaskdnkasjdn">Manage</Link>,
   },
 ];
 
 const Products = () => {
+  const { user } = useSelector((state: RootState) => state.userReducer);
+  const { isLoading, isError, error, data } = useAllStudentsQuery(user?._id);
+  // console.log(data,'student');
   const [rows, setRows] = useState<DataType[]>(arr);
+  useEffect(() => {
+    if (data)
+      setRows(
+        data.students.map((i) => ({
+          photo: <img src={`${server}/${i.photo}`} />,
+          name: i.name,
+          email:i.email,
+          mobile:i.mobile,
+          action: <Link to={`/admin/student/${i._id}`}>Manage</Link>,
+        }))
+      );
+  }, [data]);
 
   const Table = TableHOC<DataType>(
     columns,
     rows,
-    "dashboard-product-box",
-    "Products",
+    "dashboard-student-box",
+    "Students",
     rows.length > 6
   )();
 
