@@ -9,6 +9,8 @@ import { getUser } from './redux/api/userAPI';
 import { RootState } from "./redux/store";
 import ProtectedRoute from './components/protected-route';
 import NotFound from './pages/not-found';
+import NewEnquiry from './pages/admin/management/newEnquiry';
+// import AttendanceManagement from './pages/admin/management/attendancemanagement';
 // import OrderDetails from './pages/order-details';
 // import Checkout from './pages/checkout';
 // import NotFound from './pages/not-found';
@@ -27,7 +29,7 @@ const Header = lazy(() => import("./components/header"));
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const Products = lazy(() => import("./pages/admin/products"));
 const Customers = lazy(() => import("./pages/admin/customers"));
-const Transaction = lazy(() => import("./pages/admin/transaction"));
+const Attendance = lazy(() => import("./pages/admin/attendance"));
 const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));
 const Piecharts = lazy(() => import("./pages/admin/charts/piecharts"));
 const Linecharts = lazy(() => import("./pages/admin/charts/linecharts"));
@@ -38,8 +40,8 @@ const NewProduct = lazy(() => import("./pages/admin/management/newproduct"));
 const ProductManagement = lazy(
   () => import("./pages/admin/management/productmanagement")
 );
-const TransactionManagement = lazy(
-  () => import("./pages/admin/management/transactionmanagement")
+const AttendanceManagement = lazy(
+  () => import("./pages/admin/management/attendancemanagement")
 );
 
 
@@ -125,7 +127,7 @@ const App = () => {
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/student" element={<Products />} />
             <Route path="/admin/customer" element={<Customers />} />
-            <Route path="/admin/transaction" element={<Transaction />} />
+            <Route path="/admin/attendance" element={<Attendance />} />
             {/* Charts */}
             <Route path="/admin/chart/bar" element={<Barcharts />} />
             <Route path="/admin/chart/pie" element={<Piecharts />} />
@@ -137,10 +139,11 @@ const App = () => {
 
             {/* Management */}
             <Route path="/admin/product/new" element={<NewProduct />} />
+            <Route path="/admin/customer/new" element={<NewEnquiry />} />
 
             <Route path="/admin/student/:id" element={<ProductManagement />} />
 
-            <Route path="/admin/transaction/:id" element={<TransactionManagement />} />
+            <Route path="/admin/attendance/:id" element={<AttendanceManagement />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

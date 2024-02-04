@@ -24,7 +24,30 @@ export type Student = {
   photo: string;
   _id: string;
 };
+export type Attendace = {
+  studentId:string;
+  adminId: string;
+  studentName:string;
+  latestAttendance: {
+    day: string;
+    idx1: number | null;
+    idx2: number | null;
+    isPresent: "Present" | "Not Present" | "Pending";
+    seatNumber:number;
+  };
+  _id: string;
+};
 
+export type Enquiry = {
+  name: string;
+  email:string;
+  mobile:string;
+  gender:string;
+  shift:string;
+  message: string;
+  adminId:string;
+  _id: string;
+};
 export type ShippingInfo = {
   address: string;
   city: string;

@@ -32,6 +32,12 @@ $color3: rgb(0, 104, 136);
 .green {
   color: rgb(0, 195, 0);
 }
+.yellow{
+  color: rgb(239, 209, 16)
+}
+.grey{
+  color: rgb(142, 142, 142)
+}
 
 @import "admin-styles/mixin";
 @import "home";
@@ -186,8 +192,8 @@ $color3: rgb(0, 104, 136);
       padding: 1rem;
 
       img {
-        width: 4rem;
-        height: 4rem;
+        width: 3rem;
+        height: 3rem;
         object-fit: contain;
         border-radius: 10px;
       }

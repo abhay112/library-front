@@ -92,13 +92,13 @@ const DivOne = ({ location }: { location: Location }) => (
       />
       <Li
         url="/admin/customer"
-        text="Customer"
+        text="Enquiry"
         Icon={IoIosPeople}
         location={location}
       />
       <Li
-        url="/admin/transaction"
-        text="Transaction"
+        url="/admin/attendance"
+        text="Attendance"
         Icon={AiFillFileText}
         location={location}
       />

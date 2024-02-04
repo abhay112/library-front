@@ -5,9 +5,11 @@ import {
   Order,
   Pie,
   Student,
+  Attendace,
   ShippingInfo,
   Stats,
   User,
+  Enquiry,
 } from "./types";
 
 export type CustomError = {
@@ -37,6 +39,29 @@ export type AllStudentsResponse = {
   success: boolean;
   students: Student[];
 };
+export type AllAttendanceResponse = {
+  success: boolean;
+  attendance: Attendace[];
+};
+export type AllEnquiryResponse = {
+  success: boolean;
+  attendance: Enquiry[];
+};
+
+export type UpdateAttendanceRequest = {
+  adminId: string;
+  studentId: string;
+};
+export type GetAttendanceRequest = {
+  adminId: string;
+  studentId: string;
+};
+
+export type NewEnquiryRequest = {
+  id: string;
+  formData: FormData;
+};
+
 export type CategoriesResponse = {
   success: boolean;
   categories: string[];
