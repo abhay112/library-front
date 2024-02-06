@@ -85,13 +85,13 @@ const DivOne = ({ location }: { location: Location }) => (
         location={location}
       />
       <Li
-        url="/admin/student"
-        text="Student"
+        url="/admin/students"
+        text="Students"
         Icon={RiShoppingBag3Fill}
         location={location}
       />
       <Li
-        url="/admin/customer"
+        url="/admin/enquiry"
         text="Enquiry"
         Icon={IoIosPeople}
         location={location}
@@ -99,6 +99,12 @@ const DivOne = ({ location }: { location: Location }) => (
       <Li
         url="/admin/attendance"
         text="Attendance"
+        Icon={AiFillFileText}
+        location={location}
+      />
+      <Li
+        url="/admin/fees"
+        text="Fees"
         Icon={AiFillFileText}
         location={location}
       />

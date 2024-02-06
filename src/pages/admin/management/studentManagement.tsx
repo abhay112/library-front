@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
@@ -10,35 +11,38 @@ import { responseToast } from "../../../utils/features";
 interface RouteParams {
   id: string;
 }
+
 const img =
   "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
 
-const Productmanagement = () => {
+const StudentManagement = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
   const params = useParams<RouteParams>();
   const id = params?.id || "";
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useStudentDetailsQuery(id);
-  console.log(data,params,user,'student detailspage')
-  const { name, email, mobile, photo } = data?.student || {
+  const { data, isLoading, isError,refetch } = useStudentDetailsQuery(id, { refetchOnMountOrArgChange: true });
+  console.log(data);
+  const { name, email, mobile, shift, feesAmount, active, photo } = data?.student || {
     photo: "",
     name: "",
     email: "",
     mobile: 0,
+    shift: "",
+    active: true,
+    feesAmount: 0,
   };
 
   const [nameUpdate, setNameUpdate] = useState<string>(name);
   const [photoUpdate, setPhotoUpdate] = useState<string>(photo);
   const [emailUpdate, setEmailUpdate] = useState<string>(email);
   const [mobileUpdate, setMobileUpdate] = useState<number>(Number(mobile));
-  const [photoFile, setPhotoFile] = useState<File>();
+  const [shiftUpdate, setShiftUpdate] = useState<string>(shift);
+  const [feesUpdate, setFeesUpdate] = useState<number>(Number(feesAmount));
+  const [activeUpdate, setActiveUpdate] = useState<boolean>(active);
 
-  const [updateProduct] = useUpdateStudentMutation();
+  const [photoFile, setPhotoFile] = useState<File | undefined>();
+  const [updateStudent] = useUpdateStudentMutation();
   const [deleteProduct] = useDeleteStudentMutation();
-  console.log(name,email,mobile,photo,'all data');
-  console.log(nameUpdate,emailUpdate,mobileUpdate,photoUpdate,'all data');
-
-
 
   const changeImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
@@ -55,34 +59,40 @@ const Productmanagement = () => {
       };
     }
   };
-  console.log( user?._id, data?.student._id,'id');
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
-
-    if (nameUpdate) formData.set("name", nameUpdate);
-    // if (emailUpdate) formData.set("email", emailUpdate.toString());
-    if (mobileUpdate !== undefined)
-      formData.set("mobile", mobileUpdate.toString());
-    if (photoFile) formData.set("photo", photoFile);
-    const res = await updateProduct({
+    if (nameUpdate)  formData.set("name", nameUpdate);
+    if (emailUpdate) formData.set("email",emailUpdate);
+    if (shiftUpdate) formData.set("shift",shiftUpdate);
+    if (feesUpdate)  formData.set("feesAmount",feesUpdate.toString());
+    if (activeUpdate !== undefined) formData.set("active", activeUpdate.toString());
+    if (mobileUpdate !== undefined) formData.set("mobile", mobileUpdate.toString());
+    if (photoFile)   formData.set("photo", photoFile);
+    const res = await updateStudent({
       formData,
-      userId: user?._id||"",
-      studentId: data?.student._id||"",
-    });
-
-    responseToast(res, navigate, "/admin/student");
+      userId: user?._id || "",
+      studentId: data?.student._id || "",
+    })
+    console.log(res);
+    refetch();
+    responseToast(res, navigate, "/admin/students");
+   
   };
 
   const deleteHandler = async () => {
-    const res = await deleteProduct({
-      userId: user?._id||"",
-      studentId: data?.student._id||"",
-    });
+    try {
+        const res = await deleteProduct({
+        userId: user?._id || "",
+        studentId: data?.student._id || "",
+      }) // unwrap to access the actual response
 
-    responseToast(res, navigate, "/admin/student");
+      responseToast(res, navigate, "/admin/students");
+    } catch (error) {
+      console.error("Error deleting student:", error);
+    }
   };
 
   useEffect(() => {
@@ -90,30 +100,26 @@ const Productmanagement = () => {
       setNameUpdate(data.student.name);
       setEmailUpdate(data.student.email);
       setMobileUpdate(Number(data.student.mobile));
+      setShiftUpdate(data.student.shift);
+      setFeesUpdate(Number(data.student.feesAmount));
+      setActiveUpdate(data.student.active);
     }
   }, [data]);
-  if (isError) return <Navigate to={"/404"} />;
+  console.log(active,activeUpdate);
 
+  if (isError) return <Navigate to={"/404"} />;
 
   return (
     <div className="admin-container">
       <AdminSidebar />
       <main className="product-management">
         <section>
-          <strong>ID - fsdfsfsggfgdf</strong>
           <img src={`${server}/${photo}`} alt="Student" />
-          <p>{name}</p>
-          {/* {stock > 0 ? (
-            <span className="green">{stock} Available</span>
-          ) : (
-            <span className="red"> Not Available</span>
-          )} */}
-          <h3>₹{mobile}</h3>
         </section>
         <article>
-            <button className="product-delete-btn" onClick={deleteHandler}>
-                <FaTrash />
-              </button>
+          <button className="product-delete-btn" onClick={deleteHandler}>
+            <FaTrash />
+          </button>
           <form onSubmit={submitHandler}>
             <h2>Manage</h2>
             <div>
@@ -131,8 +137,7 @@ const Productmanagement = () => {
                 type="email"
                 placeholder="Email"
                 value={emailUpdate}
-                onChange={(e) => setEmailUpdate((e.target.value))}
-                disabled
+                onChange={(e) => setEmailUpdate(e.target.value)}
               />
             </div>
             <div>
@@ -144,7 +149,34 @@ const Productmanagement = () => {
                 onChange={(e) => setMobileUpdate(Number(e.target.value))}
               />
             </div>
-           
+            <div>
+              <label>Shift</label>
+              <input
+                type="text"
+                placeholder="Shift"
+                value={shiftUpdate}
+                onChange={(e) => setShiftUpdate(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>Fees</label>
+              <input
+                type="text"
+                placeholder="Fees"
+                value={feesUpdate}
+                onChange={(e) => setFeesUpdate(Number(e.target.value))}
+              />
+            </div>
+            <div>
+              <label>Active</label>
+              <select
+                value={activeUpdate ? "enrolled" : "inactive"}
+                onChange={(e) => setActiveUpdate(e.target.value === "enrolled")}
+              >
+                <option value="enrolled">Enrolled</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
             <div>
               <label>Photo</label>
               <input type="file" onChange={changeImageHandler} />
@@ -159,4 +191,4 @@ const Productmanagement = () => {
   );
 };
 
-export default Productmanagement;
+export default StudentManagement;

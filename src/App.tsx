@@ -10,6 +10,10 @@ import { RootState } from "./redux/store";
 import ProtectedRoute from './components/protected-route';
 import NotFound from './pages/not-found';
 import NewEnquiry from './pages/admin/management/newEnquiry';
+import Enquiry from './pages/admin/enquiry';
+import EnquiryManagement from './pages/admin/management/enquirymanagement';
+import Students from './pages/admin/students';
+import StudentManagement from './pages/admin/management/studentManagement';
 // import AttendanceManagement from './pages/admin/management/attendancemanagement';
 // import OrderDetails from './pages/order-details';
 // import Checkout from './pages/checkout';
@@ -27,8 +31,8 @@ const Header = lazy(() => import("./components/header"));
 
 //admin route 
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
-const Products = lazy(() => import("./pages/admin/products"));
-const Customers = lazy(() => import("./pages/admin/customers"));
+const Products = lazy(() => import("./pages/admin/students"));
+const Customers = lazy(() => import("./pages/admin/enquiry"));
 const Attendance = lazy(() => import("./pages/admin/attendance"));
 const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));
 const Piecharts = lazy(() => import("./pages/admin/charts/piecharts"));
@@ -36,9 +40,9 @@ const Linecharts = lazy(() => import("./pages/admin/charts/linecharts"));
 const Coupon = lazy(() => import("./pages/admin/apps/coupon"));
 const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
 const Toss = lazy(() => import("./pages/admin/apps/toss"));
-const NewProduct = lazy(() => import("./pages/admin/management/newproduct"));
+const NewProduct = lazy(() => import("./pages/admin/management/newStudent"));
 const ProductManagement = lazy(
-  () => import("./pages/admin/management/productmanagement")
+  () => import("./pages/admin/management/studentManagement")
 );
 const AttendanceManagement = lazy(
   () => import("./pages/admin/management/attendancemanagement")
@@ -125,8 +129,8 @@ const App = () => {
             }
           >
             <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/student" element={<Products />} />
-            <Route path="/admin/customer" element={<Customers />} />
+            <Route path="/admin/students" element={<Students />} />
+            <Route path="/admin/enquiry" element={<Enquiry />} />
             <Route path="/admin/attendance" element={<Attendance />} />
             {/* Charts */}
             <Route path="/admin/chart/bar" element={<Barcharts />} />
@@ -138,11 +142,10 @@ const App = () => {
             <Route path="/admin/app/toss" element={<Toss />} />
 
             {/* Management */}
-            <Route path="/admin/product/new" element={<NewProduct />} />
-            <Route path="/admin/customer/new" element={<NewEnquiry />} />
-
-            <Route path="/admin/student/:id" element={<ProductManagement />} />
-
+            <Route path="/admin/student/new" element={<NewProduct />} />
+            <Route path="/admin/enquiry/new" element={<NewEnquiry />} />
+            <Route path="/admin/enquiry/:id" element={<EnquiryManagement />} />
+            <Route path="/admin/student/:id" element={<StudentManagement />} />
             <Route path="/admin/attendance/:id" element={<AttendanceManagement />} />
           </Route>
           <Route path="*" element={<NotFound />} />

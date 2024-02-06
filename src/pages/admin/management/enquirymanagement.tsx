@@ -1,46 +1,56 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import {  FormEvent, useState } from "react";
+import {  FormEvent, useEffect, useState } from "react";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
-import { useCreateEnquiryMutation } from "../../../redux/api/enquiryAPI";
+import { useCreateEnquiryMutation, useGetEnquiryQuery, useGetSingleEnquiryQuery, useUpdateEnquiryMutation } from "../../../redux/api/enquiryAPI";
 import { useSelector } from "react-redux";
 import { RootState } from "@reduxjs/toolkit/query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { responseToast } from "../../../utils/features";
 
 const NewEnquiry = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [mobile, setMobile] = useState<string>("");
-  const [gender, setGender] = useState<string>("");
-  const [shift, setShift] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
   const [adminId, setAdminId] = useState<string>(user?._id);
-
-  const [createEnquiry] = useCreateEnquiryMutation();
   const navigate = useNavigate();
+  const location = useLocation();
+  const enquiryId = location.pathname.split('/').pop() || '';
+  const { data,isError,error,refetch } = useGetSingleEnquiryQuery({adminId:user?._id,id:enquiryId});
+  console.log(data);
+
+  const { name, email, mobile, gender, shift,message } = data?.enquiries || {
+    name: "",
+    email: "",
+    mobile: "",
+    gender:"",  
+    shift: "",
+    message:"",
+  };
+  console.log(name,email,mobile,gender,shift,message);
+  const [messageUpdate, setMessageUpdate] = useState<string>(message);
+  const [createEnquiry] = useCreateEnquiryMutation();
+  const [updateEnquiry] = useUpdateEnquiryMutation();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log(name, email, mobile, gender, shift, user?._id);
-    if (!name || !email || mobile.length < 10 || !gender || !shift) {
-      console.log('error');
-      return;
+    console.log(messageUpdate);
+    const formData ={
+        name,
+        email,
+        mobile,
+        gender,
+        shift,
+        message:messageUpdate,
     }
-    const formData = {
-      name,
-      email,
-      mobile,
-      gender,
-      shift,
-      message,
-      adminId,
-    };
-    const res = await createEnquiry({ id: user?._id, formData:formData});
+    const res = await updateEnquiry({ adminId:user?._id,enquiryId:data?.enquiries?._id,formData:formData});
     console.log(res);
     responseToast(res, navigate, "/admin/enquiry");
   }
+  useEffect(() => {
+    if (data) {
+        setMessageUpdate(data?.enquiries?.message);
+    }
+  }, [data]);
 
+  console.log(messageUpdate);
   return (
     <div className="admin-container">
       <AdminSidebar />
@@ -55,7 +65,6 @@ const NewEnquiry = () => {
                 type="text"
                 placeholder="Name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div>
@@ -65,7 +74,6 @@ const NewEnquiry = () => {
                 type="text"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
@@ -75,7 +83,6 @@ const NewEnquiry = () => {
                 type="text"
                 placeholder="Mobile"
                 value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
               />
             </div>
             <div>
@@ -85,7 +92,6 @@ const NewEnquiry = () => {
                 type="text"
                 placeholder="Gender"
                 value={gender}
-                onChange={(e) => setGender(e.target.value)}
               />
             </div>
             <div>
@@ -95,7 +101,6 @@ const NewEnquiry = () => {
                 type="text"
                 placeholder="Shift"
                 value={shift}
-                onChange={(e) => setShift(e.target.value)}
               />
             </div>
             <div>
@@ -103,7 +108,7 @@ const NewEnquiry = () => {
               <textarea
                 placeholder="Message"
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => setMessageUpdate(e.target.value)}
               />
             </div>
             <button type="submit">Create</button>

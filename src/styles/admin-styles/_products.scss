@@ -47,6 +47,61 @@
     @include flex(column, unset, unset, 1rem);
     position: relative;
     border-radius: 5px;
+    > form {
+      @include flex(column, unset, center, 2rem);
+      > h2 {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      
+
+      > img {
+        @include square(5rem);
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      > div {
+        width: 100%;
+        position: relative;
+        > label {
+          position: absolute;
+          left: 0;
+          top: -1.5rem;
+        }
+
+        > input {
+          @include inputStyle(
+            100%,
+            1rem,
+            unset,
+            1px solid rgba(13, 13, 13, 0.196)
+          );
+          border-radius: 5px;
+        }
+        > select {
+          @include inputStyle(
+            100%,
+            1rem,
+            white,
+            1px solid rgba(154, 154, 154, 0.38)
+          );
+          border-radius: 10px;
+          margin: 0.5rem;
+        }
+      }
+
+      > button {
+        padding: 1rem;
+        border: none;
+        background-color: rgb(5, 107, 224);
+        color: white;
+        width: 100%;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        cursor: pointer;
+      }
+    }
 
     > h2 {
       @include heading(2px);
@@ -79,8 +134,9 @@
     }
   }
 
+
   > article {
-    height: 85vh;
+    height: auto;
     padding: 2rem;
     width: 100%;
     max-width: 400px;

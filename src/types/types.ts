@@ -20,6 +20,9 @@ export type Student = {
   email:string;
   mobile:string;
   library: string;
+  shift:string;
+  feesAmount:number;
+  active:boolean;
   attendance:string;
   photo: string;
   _id: string;

@@ -23,34 +23,6 @@ interface DataType {
 const img2 = "https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png";
 
 
-const arr: Array<DataType> = [
-  {
-    photo: <img src={img2} alt="Shoes" />,
-    name: "Charas",
-    day: '3/2/2024',
-    seat: 400,
-    status: <span className="red">Not Present</span>,
-    action: <Link to="/admin/attendance/sajknaskd">Manage</Link>,
-  },
-
-  {
-    photo: <img src={img2} alt="Shoes" />,
-    name: "Xavirors",
-    day: '3/2/2024',
-    seat: 400,
-    status: <span className="green">Pending</span>,
-    action: <Link to="/admin/attendance/sajknaskd">Manage</Link>,
-  },
-  {
-    photo: <img src={img2} alt="Shoes" />,
-    name: "Xavirors",
-    day: '3/2/2024',
-    seat: 15,
-    status: <span className="purple">Present</span>,
-    action: <Link to="/admin/attendance/sajknaskd">Manage</Link>,
-  },
-];
-
 const columns: Column<DataType>[] = [
   {
     Header: "Photo",
@@ -93,7 +65,6 @@ const Attendance = () => {
   };
   const attendance = data?.data;
   const [rows, setRows] = useState<DataType[]>([]);
-  console.log(arr, 'arr');
   const Table = TableHOC<DataType>(
     columns,
     rows,

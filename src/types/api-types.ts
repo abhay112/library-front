@@ -44,8 +44,18 @@ export type AllAttendanceResponse = {
   attendance: Attendace[];
 };
 export type AllEnquiryResponse = {
+  [x: string]: any;
   success: boolean;
-  attendance: Enquiry[];
+  enquiry: Enquiry[];
+};
+export type GetSingleEnquiryRequest = {
+  adminId: string;
+  id: string;
+};
+export type UpdatetEnquiryRequest = {
+  adminId: string;
+  enquiryId: string;
+  formData: Enquiry[];
 };
 
 export type UpdateAttendanceRequest = {
@@ -59,7 +69,11 @@ export type GetAttendanceRequest = {
 
 export type NewEnquiryRequest = {
   id: string;
-  formData: FormData;
+  formData: object;
+};
+export type DeleteQueryRequest = {
+  adminId: string;
+  queryId: string;
 };
 
 export type CategoriesResponse = {
