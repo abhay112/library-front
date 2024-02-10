@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Link,  useNavigate } from "react-router-dom";
 import { Column } from "react-table";
-import AdminSidebar from "../../components/admin/AdminSidebar";
+import UserSidebar from "../../components/admin/UserSidebar";
 import TableHOC from "../../components/admin/TableHOC";
 import { useSelector } from "react-redux";
 import { RootState } from "@reduxjs/toolkit/query";
@@ -50,7 +50,7 @@ const columns: Column<DataType>[] = [
   },
 ];
 
-const Attendance = () => {
+const UserAttendance = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state: RootState) => state.userReducer);
   const { isLoading, isError, error, data, refetch } = useGetAttendanceQuery(user?._id, { refetchOnMountOrArgChange: true });
@@ -84,12 +84,12 @@ const Attendance = () => {
           seat: val?.latestAttendance?.seatNumber ? val?.latestAttendance?.seatNumber : <span className="grey">----</span>,
           status: val?.latestAttendance?.isPresent === "Present" ? <span className="green">Present</span> : val?.latestAttendance?.isPresent === "Pending" ? <span className="purple">Pending</span> : <span className="red">Absent</span>,
           action: val?.latestAttendance?.isPresent === "Pending" ?
-            <Link to={`/admin/attendance`}
+            <Link to={`/user/attendance`}
               onClick={() => { updateHandler(val?.adminId, val?.studentId) }} >Accept
             </Link>
             : <Link
               to={{
-                pathname: `/admin/attendance/${val?.studentId}`,
+                pathname: `/user/attendance/${val?.studentId}`,
               }}
             >
               Manage
@@ -105,11 +105,11 @@ const Attendance = () => {
   }
   return (
     <div className="admin-container">
-      <AdminSidebar />
+      <UserSidebar />
       {isLoading ? <Skeleton length={20} /> : Table}
       {/* <main>{Table}</main> */}
     </div>
   );
 };
 
-export default Attendance;
+export default UserAttendance;

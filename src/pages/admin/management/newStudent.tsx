@@ -9,11 +9,11 @@ import { useNewStudentMutation } from "../../../redux/api/studentAPI";
 const NewStudent = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
 
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [mobile, setMobile] = useState<number>();
-  const [shift, setShift] = useState<string>("");
-  const [feesAmount, setFeesAmount] = useState<number>();
+  const [name, setName] = useState<string>("abhay1");
+  const [email, setEmail] = useState<string>("abhay1@gmail.com");
+  const [mobile, setMobile] = useState<number>(9876598765);
+  const [shift, setShift] = useState<string>("Morning");
+  const [feesAmount, setFeesAmount] = useState<number>(500);
   const [photoPrev, setPhotoPrev] = useState<string>("");
   const [photo, setPhoto] = useState<File>();
   

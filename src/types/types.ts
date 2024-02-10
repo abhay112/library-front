@@ -15,40 +15,56 @@ export type Product = {
   _id: string;
 };
 export type Student = {
-  adminId:string;
+  adminId: string;
   name: string;
-  email:string;
-  mobile:string;
+  email: string;
+  mobile: string;
   library: string;
-  shift:string;
-  feesAmount:number;
-  active:boolean;
-  attendance:string;
+  shift: string;
+  feesAmount: number;
+  active: boolean;
+  attendance: string;
   photo: string;
   _id: string;
 };
 export type Attendace = {
-  studentId:string;
+  studentId: string;
   adminId: string;
-  studentName:string;
+  studentName: string;
   latestAttendance: {
     day: string;
     idx1: number | null;
     idx2: number | null;
     isPresent: "Present" | "Not Present" | "Pending";
-    seatNumber:number;
+    seatNumber: number;
   };
   _id: string;
 };
+export type Fees = {
+  studentId: string;
+  adminId: string;
+  studentName: string;
+  mobile:number;
+  fees: {
+    date: string;
+    day: string;
+    month: string;
+    year: number;
+    amount: number;
+    feesStatus:boolean;
+    shift:string;
+  };
+  _id: string;
+}
 
 export type Enquiry = {
   name: string;
-  email:string;
-  mobile:string;
-  gender:string;
-  shift:string;
+  email: string;
+  mobile: string;
+  gender: string;
+  shift: string;
   message: string;
-  adminId:string;
+  adminId: string;
   _id: string;
 };
 export type ShippingInfo = {

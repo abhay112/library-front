@@ -20,6 +20,10 @@ export const studentAPI = createApi({
       query: (id) => `latest?id=${id}`,
       providesTags: ["student"],
     }),
+    allEnrolledStudents: builder.query<AllStudentsResponse, string>({
+      query: (id) => `enrolled?id=${id}`,
+      providesTags: ["student"],
+    }),
     studentDetails: builder.query<StudentResponse, string>({
       query: (id) => id,
       providesTags: ["student"],
@@ -53,6 +57,7 @@ export const studentAPI = createApi({
 
 export const {
   useAllStudentsQuery,
+  useAllEnrolledStudentsQuery,
   useStudentDetailsQuery,
   useNewStudentMutation,
   useDeleteStudentMutation,

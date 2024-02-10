@@ -14,10 +14,14 @@ import Enquiry from './pages/admin/enquiry';
 import EnquiryManagement from './pages/admin/management/enquirymanagement';
 import Students from './pages/admin/students';
 import StudentManagement from './pages/admin/management/studentManagement';
-// import AttendanceManagement from './pages/admin/management/attendancemanagement';
-// import OrderDetails from './pages/order-details';
-// import Checkout from './pages/checkout';
-// import NotFound from './pages/not-found';
+import FeesPage from './pages/admin/fees';
+import Seats from './pages/admin/seats';
+import SeatsManagement from './pages/admin/management/seatmanagement';
+import UserDashboard from './pages/users/dashboard';
+import UserSeats from './pages/users/seats';
+import UserAttendance from './pages/users/attendance';
+import UserFeesPage from './pages/users/fees';
+import UserAttendanceManagement from './pages/users/management/attendancemanagement';
 
 const Home = lazy(() => import("./pages/home"));
 const Search = lazy(() => import("./pages/search"));
@@ -31,19 +35,12 @@ const Header = lazy(() => import("./components/header"));
 
 //admin route 
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
-const Products = lazy(() => import("./pages/admin/students"));
-const Customers = lazy(() => import("./pages/admin/enquiry"));
 const Attendance = lazy(() => import("./pages/admin/attendance"));
+const InActive = lazy(() => import("./pages/admin/inactivestudents"));
 const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));
 const Piecharts = lazy(() => import("./pages/admin/charts/piecharts"));
 const Linecharts = lazy(() => import("./pages/admin/charts/linecharts"));
-const Coupon = lazy(() => import("./pages/admin/apps/coupon"));
-const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
-const Toss = lazy(() => import("./pages/admin/apps/toss"));
 const NewProduct = lazy(() => import("./pages/admin/management/newStudent"));
-const ProductManagement = lazy(
-  () => import("./pages/admin/management/studentManagement")
-);
 const AttendanceManagement = lazy(
   () => import("./pages/admin/management/attendancemanagement")
 );
@@ -130,23 +127,45 @@ const App = () => {
           >
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/students" element={<Students />} />
-            <Route path="/admin/enquiry" element={<Enquiry />} />
+            <Route path="/admin/seats" element={<Seats />} />
             <Route path="/admin/attendance" element={<Attendance />} />
+            <Route path="/admin/fees" element={<FeesPage />} />
+            <Route path="/admin/inActive" element={<InActive />} />
+            <Route path="/admin/enquiry" element={<Enquiry />} />
             {/* Charts */}
             <Route path="/admin/chart/bar" element={<Barcharts />} />
             <Route path="/admin/chart/pie" element={<Piecharts />} />
             <Route path="/admin/chart/line" element={<Linecharts />} />
             {/* Apps */}
-            <Route path="/admin/app/coupon" element={<Coupon />} />
-            <Route path="/admin/app/stopwatch" element={<Stopwatch />} />
-            <Route path="/admin/app/toss" element={<Toss />} />
-
+          
             {/* Management */}
             <Route path="/admin/student/new" element={<NewProduct />} />
             <Route path="/admin/enquiry/new" element={<NewEnquiry />} />
             <Route path="/admin/enquiry/:id" element={<EnquiryManagement />} />
             <Route path="/admin/student/:id" element={<StudentManagement />} />
+            <Route path="/admin/seats/new" element={<SeatsManagement />} />
             <Route path="/admin/attendance/:id" element={<AttendanceManagement />} />
+          </Route>
+          <Route
+            element={
+              <ProtectedRoute
+                isAuthenticated={true}
+                admin={user?.role === "user" ? true : false}
+              />
+            }
+          >
+            <Route path="/user/dashboard" element={<UserDashboard />} />
+            <Route path="/user/seats" element={<UserSeats />} />
+            <Route path="/user/attendance" element={<UserAttendance />} />
+            <Route path="/user/fees" element={<UserFeesPage />} />
+            {/* Charts */}
+            <Route path="/user/chart/bar" element={<Barcharts />} />
+            <Route path="/user/chart/pie" element={<Piecharts />} />
+            <Route path="/user/chart/line" element={<Linecharts />} />
+            {/* Apps */}
+          
+            {/* Management */}
+            <Route path="/user/attendance/:id" element={<UserAttendanceManagement />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

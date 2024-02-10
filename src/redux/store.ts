@@ -4,6 +4,8 @@ import { userAPI } from "./api/userAPI";
 import { attendanceAPI } from "./api/attendanceAPI";
 import { userReducer } from "./reducer/userReducer";
 import { enquiryAPI } from "./api/enquiryAPI";
+import { feesAPI } from "./api/feesAPI";
+import { seatAPI } from "./api/seatAPI";
 // import { cartReducer } from "./reducer/cartReducer";
 // import { orderApi } from "./api/orderAPI";
 // import { dashboardApi } from "./api/dashboardAPI";
@@ -16,6 +18,8 @@ export const store = configureStore({
     [studentAPI.reducerPath]: studentAPI.reducer,
     [attendanceAPI.reducerPath]:attendanceAPI.reducer,
     [enquiryAPI.reducerPath]: enquiryAPI.reducer,
+    [feesAPI.reducerPath]: feesAPI.reducer,
+    [seatAPI.reducerPath]: seatAPI.reducer,
     // [orderApi.reducerPath]: orderApi.reducer,
     // [dashboardApi.reducerPath]: dashboardApi.reducer,
     [userReducer.name]: userReducer.reducer,
@@ -27,6 +31,8 @@ export const store = configureStore({
     studentAPI.middleware,
     attendanceAPI.middleware,
     enquiryAPI.middleware,
+    feesAPI.middleware,
+    seatAPI.middleware,
     // orderApi.middleware,
     // dashboardApi.middleware,
   ],

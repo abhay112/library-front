@@ -54,6 +54,11 @@ const Header =({ user }: PropsType) => {
                                     Admin
                                 </Link>
                             )}
+                             {user.role === "user" && (
+                                <Link onClick={() => setIsOpen(false)} to="/user/dashboard">
+                                    User
+                                </Link>
+                            )}
 
                             <Link onClick={() => setIsOpen(false)} to="/orders">
                                 Orders

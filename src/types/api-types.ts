@@ -10,6 +10,7 @@ import {
   Stats,
   User,
   Enquiry,
+  Fees,
 } from "./types";
 
 export type CustomError = {
@@ -43,8 +44,11 @@ export type AllAttendanceResponse = {
   success: boolean;
   attendance: Attendace[];
 };
+export type AllFeesResponse = {
+  success: boolean;
+  attendance: Fees[];
+};
 export type AllEnquiryResponse = {
-  [x: string]: any;
   success: boolean;
   enquiry: Enquiry[];
 };
@@ -71,6 +75,10 @@ export type NewEnquiryRequest = {
   id: string;
   formData: object;
 };
+export type NewSeatRequest = {
+  adminId:string;
+  formData:object;
+}
 export type DeleteQueryRequest = {
   adminId: string;
   queryId: string;
