@@ -11,6 +11,7 @@ import {
   User,
   Enquiry,
   Fees,
+  AttendanceFormData,
 } from "./types";
 
 export type CustomError = {
@@ -66,6 +67,11 @@ export type UpdateAttendanceRequest = {
   adminId: string;
   studentId: string;
 };
+
+export type CreateAttendanceRequest = {
+  studentId:string;
+  formData: AttendanceFormData;
+}
 export type GetAttendanceRequest = {
   adminId: string;
   studentId: string;

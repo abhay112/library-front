@@ -74,23 +74,51 @@ $color3: rgb(0, 104, 136);
   text-align: center;
 }
 
-.seat-page{
+.seat-page {
   display: flex;
   align-items: flex-start;
   justify-content: center;
 }
+.dashboard-fees-box {
+  background-color: white;
+  padding: 2rem;
+  overflow: auto;
+  @include square(100%);
+}
+.seat-page{
+  background-color: white;
+  padding: 2rem;
+  overflow: auto;
+  @include square(100%);
+}
+.dashboard-student-box{
+  background-color: white;
+  padding: 2rem;
+  overflow: auto;
+  @include square(100%);
+}
+.dashboard-enquiry-box{
+  background-color: white;
+  padding: 2rem;
+  overflow: auto;
+  @include square(100%);
+}
+
 .board {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .grid-row {
     height: 100%;
     width: fit-content;
+
     .square {
       margin: 4px;
       float: left;
       width: 20px;
       height: 20px;
+
       input {
         height: 20px;
         width: 20px;
@@ -115,31 +143,59 @@ $color3: rgb(0, 104, 136);
     }
   }
 }
-.seating-arrangement{
+
+.seating-arrangement {
   display: flex;
   flex-direction: column;
   align-items: center;
-  .grid-row{
+  max-width: 100%;
+  width: 100%;
+
+  p {}
+
+  h2.heading-padding {
+    padding-bottom: 2rem;
+  }
+
+  .grid-row {
     display: flex;
-    .square{
-      img{
+    justify-content: center;
+
+    .square {
+      img {
         width: 20px;
         height: 20px
       }
-      p.empty{
+
+      p.empty {
         width: 20px;
         height: 20px;
         margin: 5px;
       }
-      p.seat{
+
+      p.seat {
         height: 20px;
         width: 20px;
         border: 1px solid #aeaeae;
         font-size: 10px;
         text-align: center;
         margin: 5px;
+        cursor: pointer;
       }
-      p.gate{
+
+      p.seat.filled {
+        background-color: #aeaeae;
+        color: white;
+        pointer-events: none;
+      }
+
+      p.seat.pending {
+        background-color: #f89595;
+        color: white;
+        pointer-events: none;
+      }
+
+      p.gate {
         height: 20px;
         width: 20px;
         border: none;
@@ -151,19 +207,20 @@ $color3: rgb(0, 104, 136);
         align-items: center;
         background-color: rgb(205, 39, 39);
       }
-  
+
     }
   }
- 
+
 }
 
-.seat-layout{
+.seat-layout {
   height: fit-content;
   border: 1px solid #aeaeae;
   width: fit-content;
   padding: 20px;
   margin-top: 2rem;
 }
+
 .header {
   @include flex(row, flex-end, stretch, 1.2rem);
   padding: 1rem;
@@ -279,16 +336,42 @@ $color3: rgb(0, 104, 136);
   th,
   td {
     padding: 8px;
-    text-align: left;
+    text-align: center;
     vertical-align: middle;
   }
 
   th {
     font-weight: bold;
     color: #0000009e;
+    text-align: center;
     font-size: 1.1rem;
     font-weight: 400;
     padding: 2rem 1rem;
+  }
+
+  thead {
+
+    th,
+    td {
+      padding: 8px;
+      text-align: center;
+      vertical-align: middle;
+      // box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.093);
+
+    }
+
+    th {
+      font-weight: bold;
+      color: #0000009e;
+      font-size: 1.1rem;
+      font-weight: 400;
+      padding: 1rem 1rem;
+      box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.093);
+    }
+
+    tr {
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.093);
+    }
   }
 
   tbody {
@@ -297,11 +380,13 @@ $color3: rgb(0, 104, 136);
     }
 
     td {
-      padding: 1rem;
+      // padding: 0rem;
+      box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.093);
+
 
       img {
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
         object-fit: contain;
         border-radius: 10px;
       }
@@ -309,8 +394,8 @@ $color3: rgb(0, 104, 136);
       a {
         text-decoration: none;
         background-color: rgba(44, 104, 255, 0.455);
-        color: rgba(44, 104, 255);
-        padding: 0.25rem 0.5rem;
+        color: rgb(255, 255, 255);
+        padding: 0.25rem 1rem;
         border-radius: 10px;
       }
 
@@ -444,4 +529,69 @@ $color3: rgb(0, 104, 136);
   100% {
     opacity: 0.6;
   }
+}
+
+@media (max-width:600px) {
+  
+.table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th,
+  td {
+    padding: 8px;
+    vertical-align: middle;
+  }
+
+  th {
+    font-weight: bold;
+    color: #0000009e;
+    font-size: 0.5rem;
+    font-weight: 400;
+    padding: 2rem 1rem;
+  }
+
+  thead {
+
+    th {
+      font-size:  0.5rem;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+
+  tbody {
+    td {
+      // padding: 0rem;
+      font-size: 0.5rem;
+      padding: 0.8rem 0.5rem;
+
+      img {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      a {
+        padding: 0.25rem 0.5rem;
+        border-radius: 5px;
+      }
+
+      button {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.5rem;
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      &:first-child {
+        border-left: none;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
 }

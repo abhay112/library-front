@@ -15,7 +15,7 @@ export const seatAPI = createApi({
       providesTags: ["seats"],
     }),
     getFilledSeatLayout: builder.query<MessageResponse, string>({
-      query: (id) => `fetchFilledSeats?id=${id}`,
+      query: () => `fetchFilledSeats`,
       providesTags: ["seats"],
     }),
     createSeat: builder.mutation<MessageResponse, NewSeatRequest>({

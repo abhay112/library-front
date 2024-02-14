@@ -40,6 +40,10 @@ export type Attendace = {
   };
   _id: string;
 };
+export interface AttendanceFormData {
+  idx1: number;
+  idx2: number;
+}
 export type Fees = {
   studentId: string;
   adminId: string;
